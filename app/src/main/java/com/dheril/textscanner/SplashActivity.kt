@@ -20,18 +20,16 @@ class SplashActivity : AppCompatActivity() {
         val delayMillis = 1000L
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            moveToMain()
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            startActivity(intent)
+            finish()
         } else {
             lifecycleScope.launch {
                 delay(delayMillis)
-                moveToMain()
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
-    }
-
-    private fun moveToMain() {
-        val intent = Intent(this@SplashActivity, MainActivity::class.java)
-        startActivity(intent)
-        finish()
     }
 }

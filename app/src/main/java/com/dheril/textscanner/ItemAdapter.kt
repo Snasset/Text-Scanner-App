@@ -18,7 +18,6 @@ import com.dheril.textscanner.databinding.ItemsBinding
 class ItemAdapter(private val viewModel: ItemViewModel, private val context: Context) :  ListAdapter<ItemEntity, ItemAdapter.MyViewHolder>(DIFF_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-
         return MyViewHolder(binding, viewModel, context )
     }
 
@@ -27,12 +26,17 @@ class ItemAdapter(private val viewModel: ItemViewModel, private val context: Con
         holder.bind(item)
     }
 
-    class MyViewHolder(private val binding: ItemsBinding, private val viewModel: ItemViewModel, private val context: Context) : RecyclerView.ViewHolder(binding.root) {
+    class MyViewHolder
+        (private val binding: ItemsBinding,
+         private val viewModel: ItemViewModel,
+         private val context: Context)
+        : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ItemEntity) {
             binding.tvItemName.text =  item.title
             binding.tvItemDesc.text = item.descResult
             binding.tvItemTime.text = item.date
             val imageUri = Uri.parse(item.imageResult)
+            Log.d("myviewholder", "bind: ${item.imageResult}")
             Glide.with(itemView.context)
                 .load(imageUri)
                 .into(binding.ivPhoto)
@@ -60,7 +64,6 @@ class ItemAdapter(private val viewModel: ItemViewModel, private val context: Con
                 itemView.context.startActivity(intent)
             }
         }
-
     }
 
     companion object {
