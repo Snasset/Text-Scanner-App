@@ -14,6 +14,7 @@ import android.text.style.UnderlineSpan
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doBeforeTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.ViewModelProvider
@@ -58,7 +59,6 @@ class ResultActivity : AppCompatActivity() {
                 setItem(item)
             }
         }
-
         setupAction(itemId)
 
     }
@@ -76,12 +76,13 @@ class ResultActivity : AppCompatActivity() {
 
 
     private fun setupView() {
-
+        binding.edTitle.error = "Judul tidak boleh kosong"
         binding.edTitle.doOnTextChanged { text, start, before, count ->
             if (text.isNullOrEmpty()) {
                 binding.edTitle.error = "Judul tidak boleh kosong"
                 binding.btnSave.isEnabled = false
             } else {
+                binding.edTitle.error = null
                 binding.btnSave.isEnabled = true
             }
         }
@@ -91,10 +92,10 @@ class ResultActivity : AppCompatActivity() {
                 binding.edTitle.error = "Deskripsi tidak boleh kosong"
                 binding.btnSave.isEnabled = false
             } else {
+                binding.edTitle.error = null
                 binding.btnSave.isEnabled = true
             }
         }
-
     }
 
 

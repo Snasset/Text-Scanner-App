@@ -43,7 +43,8 @@ class MainActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(application)
     }
 
-    private lateinit var adapter: ItemAdapter
+
+
     private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(
         Date()
     )
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+    private lateinit var adapter: ItemAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (!cameraPermissionsGranted()) {
@@ -197,6 +198,7 @@ class MainActivity : AppCompatActivity() {
     private fun getImageUri(context: Context): Uri {
         var uri: Uri? = null
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
             val contentValues = ContentValues().apply {
                 put(MediaStore.MediaColumns.DISPLAY_NAME, "$timeStamp.jpg")
                 put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
@@ -211,6 +213,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getImageUriForPreQ(context: Context): Uri {
+        val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
         val filesDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
         val imageFile = File(filesDir, "/MyCamera/$timeStamp.jpg")
         if (imageFile.parentFile?.exists() == false) imageFile.parentFile?.mkdir()
@@ -229,8 +232,6 @@ class MainActivity : AppCompatActivity() {
         private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
         private const val REQUIRED_PERMISSION_CAMERA = Manifest.permission.CAMERA
     }
-
-
 
 
 }
